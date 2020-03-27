@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>CMS</title>
+    <link href="/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+          crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+            crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+<div th:replace="fragment :: top"></div>
+<div id="layoutSidenav">
+    <div th:replace="fragment :: left ('customer')"></div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h1 class="mt-4">Tables</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="index.html">CMS</a></li>
+                    <li class="breadcrumb-item active">Customers</li>
+                </ol>
+                <form action="/customer" th:action="@{/customer}" target="_self" method="post">
+                    <input type="hidden" name="id" th:if="${customer}!=null" th:value="${customer.id}">
+                    <input type="hidden" name="_method" th:if="${customer}!=null" value="put">
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Name</label>
+                        <input class="form-control" name="name" id="exampleFormControlInput1"
+                               th:value="${customer!=null}?${customer.name}:''">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobileinput">Mobile</label>
+                        <input class="form-control" name="mobile" id="mobileinput" type="number"
+                               th:value="${customer!=null}?${customer.mobile}:''">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emailinput">Email</label>
+                        <input class="form-control" name="email" id="emailinput" type="email" aria-placeholder="alp484@163.com"
+                               th:value="${customer!=null}?${customer.email}:''">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Sex</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="sex">
+                            <option value="Male" th:selected="${customer}!=null?${customer.sex}=='Male':false">Male
+                            </option>
+                            <option value="Female" th:selected="${customer}!=null?${customer.sex}=='Female':false">
+                                Female
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2">Nation</label>
+                        <select class="form-control" id="exampleFormControlSelect2" name="nation">
+                            <option value="America" th:selected="${customer}!=null?${customer.nation}=='America':false">
+                                America
+                            </option>
+                            <option value="Australia"
+                                    th:selected="${customer}!=null?${customer.nation}=='Australia':false">Australia
+                            </option>
+                            <option value="China" th:selected="${customer}!=null?${customer.nation}=='China':false">
+                                China
+                            </option>
+                            <option value="Canada" th:selected="${customer}!=null?${customer.nation}=='Canada':false">
+                                Canada
+                            </option>
+                            <option value="England" th:selected="${customer}!=null?${customer.nation}=='England':false">
+                                England
+                            </option>
+                            <option value="France" th:selected="${customer}!=null?${customer.nation}=='France':false">
+                                France
+                            </option>
+                            <option value="Germany" th:selected="${customer}!=null?${customer.nation}=='Germany':false">
+                                Germany
+                            </option>
+                            <option value="Italy" th:selected="${customer}!=null?${customer.nation}=='Italy':false">
+                                Italy
+                            </option>
+                            <option value="Japan" th:selected="${customer}!=null?${customer.nation}=='Japan':false">
+                                Japan
+                            </option>
+                            <option value="Russia" th:selected="${customer}!=null?${customer.nation}=='Russia':false">
+                                Russia
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlInput2">Age</label>
+                        <input class="form-control" type="number" name="age" id="exampleFormControlInput2"
+                               th:value="${customer!=null}?${customer.age}:''">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect3">Level</label>
+                        <select class="form-control" id="exampleFormControlSelect3" name="level">
+                            <option value="Important"
+                                    th:selected="${customer}!=null?${customer.level}=='Important':false">Important
+                            </option>
+                            <option value="Very Important"
+                                    th:selected="${customer}!=null?${customer.level}=='Very Important':false">Very
+                                Important
+                            </option>
+                            <option value="Normal" th:selected="${customer}!=null?${customer.level}=='Normal':false">
+                                Normal
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput3">Total deal amount</label>
+                        <input class="form-control" type="number" name="deal" id="exampleFormControlInput3"
+                               placeholder="00.00" th:value="${customer!=null}?${customer.deal}:''">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                </form>
+            </div>
+        </main>
+        <div th:replace="fragment :: footer"></div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/datatables-demo.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.alipanpan.springbootcms01.dao.CustomerDao">
+    <resultMap id="customerMap" type="cn.alipanpan.springbootcms01.bean.Customer">
+        <id property="id" column="ID"/>
+        <result property="name" column="NAME"/>
+        <result property="sex" column="SEX"/>
+        <result property="nation" column="NATION"/>
+        <result property="age" column="AGE"/>
+        <result property="level" column="LEVEL"/>
+        <result property="deal" column="DEAL"/>
+        <result property="mobile" column="MOBILE"/>
+        <result property="email" column="EMAIL"/>
+
+        <!--<result property="address" column="address"/>
+        <result property="mobile" column="MOBILE"/>
+        <result property="email" column="EMAIL"/>
+        <result property="createTime" column="create_time"/>
+        <result property="role" column="role"/>-->
+
+    </resultMap>
+
+    <sql id="queryCondition">
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="nation != null and nation != ''">
+                and nation = #{nation}
+            </if>
+            <if test="age != null and age != 0">
+                and age = #{age}
+            </if>
+            <if test="level != null and level != ''">
+                and level = #{level}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+
+
+            <!--	<if test="address != null and address != ''">
+                    and address = #{address}
+                </if>
+                <if test="mobile != null and mobile != ''">
+                    and mobile = #{mobile}
+                </if>
+                <if test="email != null and email != ''">
+                    and email = #{email}
+                </if>
+                <if test="role != null and role != ''">
+                    and role = #{role}
+                </if>-->
+
+        </where>
+    </sql>
+
+    <select id="getByMap" parameterType="map" resultMap="customerMap">
+        SELECT * FROM customer
+        <include refid="queryCondition"/>
+    </select>
+
+    <select id="getById" parameterType="int" resultMap="customerMap">
+        SELECT * FROM customer WHERE id =#{id}
+    </select>
+
+    <insert id="create" parameterType="cn.alipanpan.springbootcms01.bean.Customer">
+        <!--<selectKey resultType="int"  order="AFTER" keyProperty="id" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>-->
+        INSERT INTO customer(
+
+        NAME,
+        SEX,
+        NATION,
+        AGE,
+        LEVEL,
+        DEAL,
+        MOBILE,
+        EMAIL
+
+        )VALUES(
+
+        #{name},
+        #{sex},
+        #{nation},
+        #{age},
+        #{level},
+        #{deal},
+        #{mobile},
+        #{email}
+        )
+    </insert>
+
+    <update id="update" parameterType="cn.alipanpan.springbootcms01.bean.Customer">
+        UPDATE customer SET
+        NAME = #{name},
+        SEX = #{sex},
+        NATION = #{nation},
+        AGE = #{age},
+        LEVEL = #{level},
+        DEAL = #{deal},
+        EMAIL = #{email},
+        MOBILE = #{mobile}
+        /*address = #{address},
+        role = #{role}*/
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM customer WHERE id = #{id}
+    </delete>
+
+</mapper>
